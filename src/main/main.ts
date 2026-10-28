@@ -3170,7 +3170,9 @@ function saveWhitelist() {
 
 // ═══ Safe browsing — phishing/malware host blocklist ═══
 const SAFE_BROWSING_PATH = path.join(app.getPath('userData'), 'safe-browsing-hosts.txt');
-const SAFE_BROWSING_URL = 'https://urlhaus.abuse.ch/downloads/hostfile/';
+// NetAPI compromised domains, hosts format ("0.0.0.0 domain"), keyless, CC BY 4.0.
+// Replaces the URLhaus hostfile, which abuse.ch retired on 2026-10-21 (HTTP 410).
+const SAFE_BROWSING_URL = 'https://netapi.com/api2/?method=compromised&dataset_type=url&format=hosts';
 let maliciousHosts = new Set<string>();
 
 async function refreshSafeBrowsing(): Promise<void> {
